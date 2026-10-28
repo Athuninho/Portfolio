@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0b0b14;
+  --color-surface: #12121f;
+  --color-surface-2: #181829;
+  --color-line: #26263d;
+  --color-text: #ecebf7;
+  --color-muted: #a8a6c4;
+  --color-violet: #8b5cf6;
+  --color-violet-soft: #c4b5fd;
+  --color-teal: #2dd4bf;
+  --color-fuchsia: #e879f9;
+  --color-sky: #38bdf8;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background: var(--color-ink);
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-violet) 55%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #a78bfa, #2dd4bf, #e879f9, #a78bfa);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 8s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.float { animation: float-y 6s ease-in-out infinite; }
+.orbit { animation: orbit 28s linear infinite; }
+.orbit-rev { animation: orbit 28s linear infinite reverse; }
+.caret { animation: blink 1s steps(1) infinite; }
+
+.glow-violet { box-shadow: 0 0 60px -10px color-mix(in srgb, var(--color-violet) 45%, transparent); }
+
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(139, 92, 246, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 92, 246, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+}
+
+.todo-chip {
+  display: inline;
+  border: 1px dashed color-mix(in srgb, var(--color-teal) 70%, transparent);
+  background: color-mix(in srgb, var(--color-teal) 8%, transparent);
+  color: var(--color-teal);
+  border-radius: 6px;
+  padding: 0 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .text-gradient, .float, .orbit, .orbit-rev, .caret { animation: none !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
